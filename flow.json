@@ -1,0 +1,295 @@
+[
+    {
+        "id": "38336e80fa6d36cf",
+        "type": "tab",
+        "label": "Matrix bot for YunoHost",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "380636013adee302",
+        "type": "matrix-receive",
+        "z": "38336e80fa6d36cf",
+        "name": "",
+        "server": "05634acf4f865805",
+        "roomId": "!gvRsI7cG1o9SVr56:pijean.ovh,!oUChrIGPjhUkpgjYCW:matrix.org,!PauySEslPVuJCJCwlZ:matrix.org",
+        "acceptText": false,
+        "acceptEmotes": false,
+        "acceptStickers": false,
+        "acceptReactions": true,
+        "acceptFiles": false,
+        "acceptAudio": false,
+        "acceptImages": false,
+        "acceptVideos": false,
+        "acceptLocations": false,
+        "x": 100,
+        "y": 20,
+        "wires": [
+            [
+                "0500f858d31d8dd8",
+                "5188505e3ca2f236"
+            ]
+        ]
+    },
+    {
+        "id": "2be1dbf5c78aa986",
+        "type": "filter",
+        "z": "38336e80fa6d36cf",
+        "name": "Filter admins only",
+        "property": "userId",
+        "filter": "@titus:pijean\\.ovh|@Alekswag:matrix\\.org|@Bram_:matrix\\.org|@tag:lostpod\\.me|@ericg:matrix\\.org",
+        "ignorecase": false,
+        "x": 370,
+        "y": 80,
+        "wires": [
+            [
+                "12892243c42d4f8b"
+            ]
+        ]
+    },
+    {
+        "id": "12892243c42d4f8b",
+        "type": "delay",
+        "z": "38336e80fa6d36cf",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "5",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 360,
+        "y": 140,
+        "wires": [
+            [
+                "34807ea76b32dabc"
+            ]
+        ]
+    },
+    {
+        "id": "34807ea76b32dabc",
+        "type": "matrix-send-message",
+        "z": "38336e80fa6d36cf",
+        "name": "Send message",
+        "server": "05634acf4f865805",
+        "roomId": "",
+        "message": "Hi! To help us volunteers help you, read about <a href=\"https://yunohost.org/en/community/help#how-to-ask-for-help\">how to ask for help</a>.\n<br />\nNotably, if you are getting an error, share its <em>full</em> log by pasting here the link to the page created by the YunoPaste buttons. Explain your problem <em>directly, plainly, but concisely</em>.\n<br />\nThank you for you patience, and thank you for using YunoHost!",
+        "messageType": "m.notice",
+        "messageFormat": "html",
+        "replaceMessage": false,
+        "x": 360,
+        "y": 200,
+        "wires": [
+            [
+                "eae67ba5a47e1716"
+            ],
+            [
+                "eae67ba5a47e1716"
+            ]
+        ]
+    },
+    {
+        "id": "fb2cbb5873d95da5",
+        "type": "comment",
+        "z": "38336e80fa6d36cf",
+        "name": "Rooms",
+        "info": "!gvRsI7cG1o9SVr56:pijean.ovh --- Support room\n!oUChrIGPjhUkpgjYCW:matrix.org --- Dev room\n!PauySEslPVuJCJCwlZ:matrix.org --- Apps devs room",
+        "x": 90,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "0500f858d31d8dd8",
+        "type": "filter",
+        "z": "38336e80fa6d36cf",
+        "name": "",
+        "property": "payload",
+        "filter": "🪵",
+        "ignorecase": true,
+        "x": 190,
+        "y": 80,
+        "wires": [
+            [
+                "2be1dbf5c78aa986"
+            ]
+        ]
+    },
+    {
+        "id": "59b45f4949797dbd",
+        "type": "matrix-join-room",
+        "z": "38336e80fa6d36cf",
+        "name": "Join support room",
+        "server": "05634acf4f865805",
+        "x": 450,
+        "y": 420,
+        "wires": [
+            [
+                "8570084d3cded973"
+            ],
+            [
+                "8570084d3cded973"
+            ]
+        ]
+    },
+    {
+        "id": "53f4392f5cb5b0d7",
+        "type": "inject",
+        "z": "38336e80fa6d36cf",
+        "name": "",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "!gvRsI7cG1o9SVr56:pijean.ovh",
+        "x": 170,
+        "y": 380,
+        "wires": [
+            [
+                "59b45f4949797dbd"
+            ]
+        ]
+    },
+    {
+        "id": "3293752a110a9553",
+        "type": "inject",
+        "z": "38336e80fa6d36cf",
+        "name": "",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "!oUChrIGPjhUkpgjYCW:matrix.org",
+        "x": 180,
+        "y": 420,
+        "wires": [
+            [
+                "59b45f4949797dbd"
+            ]
+        ]
+    },
+    {
+        "id": "98bf789b900b430b",
+        "type": "inject",
+        "z": "38336e80fa6d36cf",
+        "name": "",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "!PauySEslPVuJCJCwlZ:matrix.org",
+        "x": 180,
+        "y": 460,
+        "wires": [
+            [
+                "59b45f4949797dbd"
+            ]
+        ]
+    },
+    {
+        "id": "e8fd834180b04f15",
+        "type": "link in",
+        "z": "38336e80fa6d36cf",
+        "name": "link in 1",
+        "links": [
+            "8570084d3cded973",
+            "5188505e3ca2f236",
+            "eae67ba5a47e1716"
+        ],
+        "x": 835,
+        "y": 300,
+        "wires": [
+            [
+                "fa8ff00116e6a0e1"
+            ]
+        ]
+    },
+    {
+        "id": "fa8ff00116e6a0e1",
+        "type": "debug",
+        "z": "38336e80fa6d36cf",
+        "name": "debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 930,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "8570084d3cded973",
+        "type": "link out",
+        "z": "38336e80fa6d36cf",
+        "name": "link out 2",
+        "mode": "link",
+        "links": [
+            "e8fd834180b04f15"
+        ],
+        "x": 595,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "5188505e3ca2f236",
+        "type": "link out",
+        "z": "38336e80fa6d36cf",
+        "name": "link out 3",
+        "mode": "link",
+        "links": [
+            "e8fd834180b04f15"
+        ],
+        "x": 275,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "eae67ba5a47e1716",
+        "type": "link out",
+        "z": "38336e80fa6d36cf",
+        "name": "link out 4",
+        "mode": "link",
+        "links": [
+            "e8fd834180b04f15"
+        ],
+        "x": 505,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "05634acf4f865805",
+        "type": "matrix-server-config",
+        "name": "yunohelper bot",
+        "autoAcceptRoomInvites": true,
+        "enableE2ee": true,
+        "global": true
+    }
+]
