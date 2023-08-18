@@ -27,24 +27,8 @@
         "y": 20,
         "wires": [
             [
-                "0500f858d31d8dd8",
-                "5188505e3ca2f236"
-            ]
-        ]
-    },
-    {
-        "id": "2be1dbf5c78aa986",
-        "type": "filter",
-        "z": "38336e80fa6d36cf",
-        "name": "Filter admins only",
-        "property": "userId",
-        "filter": "@titus:pijean\\.ovh|@Alekswag:matrix\\.org|@Bram_:matrix\\.org|@tag:lostpod\\.me|@ericg:matrix\\.org",
-        "ignorecase": false,
-        "x": 370,
-        "y": 80,
-        "wires": [
-            [
-                "12892243c42d4f8b"
+                "5188505e3ca2f236",
+                "04159392a1a12315"
             ]
         ]
     },
@@ -65,7 +49,7 @@
         "drop": true,
         "allowrate": false,
         "outputs": 1,
-        "x": 360,
+        "x": 420,
         "y": 140,
         "wires": [
             [
@@ -80,11 +64,11 @@
         "name": "Send message",
         "server": "05634acf4f865805",
         "roomId": "",
-        "message": "Hi! To help us volunteers help you, read about <a href=\"https://yunohost.org/en/community/help#how-to-ask-for-help\">how to ask for help</a>.\n<br />\nNotably, if you are getting an error, share its <em>full</em> log by pasting here the link to the page created by the YunoPaste buttons. Explain your problem <em>directly, plainly, but concisely</em>.\n<br />\nThank you for you patience, and thank you for using YunoHost!",
+        "message": "",
         "messageType": "m.notice",
         "messageFormat": "html",
         "replaceMessage": false,
-        "x": 360,
+        "x": 420,
         "y": 200,
         "wires": [
             [
@@ -102,24 +86,8 @@
         "name": "Rooms",
         "info": "!gvRsI7cG1o9SVr56:pijean.ovh --- Support room\n!oUChrIGPjhUkpgjYCW:matrix.org --- Dev room\n!PauySEslPVuJCJCwlZ:matrix.org --- Apps devs room",
         "x": 90,
-        "y": 340,
+        "y": 320,
         "wires": []
-    },
-    {
-        "id": "0500f858d31d8dd8",
-        "type": "filter",
-        "z": "38336e80fa6d36cf",
-        "name": "",
-        "property": "payload",
-        "filter": "🪵",
-        "ignorecase": true,
-        "x": 190,
-        "y": 80,
-        "wires": [
-            [
-                "2be1dbf5c78aa986"
-            ]
-        ]
     },
     {
         "id": "59b45f4949797dbd",
@@ -128,7 +96,7 @@
         "name": "Join support room",
         "server": "05634acf4f865805",
         "x": 450,
-        "y": 420,
+        "y": 400,
         "wires": [
             [
                 "8570084d3cded973"
@@ -155,7 +123,7 @@
         "onceDelay": 0.1,
         "topic": "!gvRsI7cG1o9SVr56:pijean.ovh",
         "x": 170,
-        "y": 380,
+        "y": 360,
         "wires": [
             [
                 "59b45f4949797dbd"
@@ -179,7 +147,7 @@
         "onceDelay": 0.1,
         "topic": "!oUChrIGPjhUkpgjYCW:matrix.org",
         "x": 180,
-        "y": 420,
+        "y": 400,
         "wires": [
             [
                 "59b45f4949797dbd"
@@ -203,7 +171,7 @@
         "onceDelay": 0.1,
         "topic": "!PauySEslPVuJCJCwlZ:matrix.org",
         "x": 180,
-        "y": 460,
+        "y": 440,
         "wires": [
             [
                 "59b45f4949797dbd"
@@ -220,8 +188,8 @@
             "5188505e3ca2f236",
             "eae67ba5a47e1716"
         ],
-        "x": 835,
-        "y": 300,
+        "x": 735,
+        "y": 200,
         "wires": [
             [
                 "fa8ff00116e6a0e1"
@@ -241,8 +209,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 930,
-        "y": 300,
+        "x": 830,
+        "y": 200,
         "wires": []
     },
     {
@@ -255,7 +223,7 @@
             "e8fd834180b04f15"
         ],
         "x": 595,
-        "y": 420,
+        "y": 400,
         "wires": []
     },
     {
@@ -267,7 +235,7 @@
         "links": [
             "e8fd834180b04f15"
         ],
-        "x": 275,
+        "x": 595,
         "y": 20,
         "wires": []
     },
@@ -280,9 +248,42 @@
         "links": [
             "e8fd834180b04f15"
         ],
-        "x": 505,
+        "x": 595,
         "y": 200,
         "wires": []
+    },
+    {
+        "id": "04159392a1a12315",
+        "type": "function",
+        "z": "38336e80fa6d36cf",
+        "name": "Filter reaction and preparate answer",
+        "func": "let greeting = \"Hi! To help us volunteers help you, read about <a href=\\\"https://yunohost.org/en/community/help#how-to-ask-for-help\\\">how to ask for help</a>.\" ;\nlet closing = \"Thank you for you patience, and thank you for using YunoHost!\";\nlet message;\n\nswitch(msg.payload){\n    case \"🪵\":\n        message = \"Notably, if you are getting an error, share its <em>full</em> log by pasting here the link to the page created by the YunoPaste buttons.\";\n        break;\n// The ? emoji is actually 2-character-long. Make sure to copy it from the debug log.\n    case \"❓️\":\n        message = \"Notably, contextualize your problem and explain it plainly.\";\n        break;\n    case \"🦤\":\n        message = \"Notably, directly explain your problem or ask your question.\";\n        break;\n    case \"🧱\":\n        message = \"Notably, explain your problem and avoid sentences like \\\"it does not work\\\". Share any displayed error, use YunoPaste buttons, describe what is not working.\";\n        break;\n}\n\nmsg.payload = greeting+\"<br />\"+message+\"<br />\"+closing;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 270,
+        "y": 80,
+        "wires": [
+            [
+                "12892243c42d4f8b"
+            ]
+        ]
+    },
+    {
+        "id": "2be1dbf5c78aa986",
+        "type": "filter",
+        "z": "38336e80fa6d36cf",
+        "name": "Filter admins only",
+        "property": "userId",
+        "filter": "@titus:pijean\\.ovh|@Alekswag:matrix\\.org|@Bram_:matrix\\.org|@tag:lostpod\\.me|@ericg:matrix\\.org",
+        "ignorecase": false,
+        "x": 210,
+        "y": 140,
+        "wires": [
+            []
+        ]
     },
     {
         "id": "05634acf4f865805",
