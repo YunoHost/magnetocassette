@@ -272,20 +272,6 @@
         ]
     },
     {
-        "id": "2be1dbf5c78aa986",
-        "type": "filter",
-        "z": "38336e80fa6d36cf",
-        "name": "Filter admins only",
-        "property": "userId",
-        "filter": "@titus:pijean\\.ovh|@Alekswag:matrix\\.org|@Bram_:matrix\\.org|@tag:lostpod\\.me|@ericg:matrix\\.org",
-        "ignorecase": false,
-        "x": 210,
-        "y": 140,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "05634acf4f865805",
         "type": "matrix-server-config",
         "name": "yunohelper bot",
